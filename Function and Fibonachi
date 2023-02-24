@@ -1,0 +1,37 @@
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+	printf("Type in input for the first exercise (0;4]\n");
+	float a = 0;
+	cin >> a;
+	float step = (4 - a) / 10;
+	if (a <= 0 || a > 4) 
+	{
+		printf("Incorrect input\n");
+		cin >> a;
+		return 0;
+	}
+	int i = 0;
+	float fun = 0;
+	while (i != 10) 
+	{
+		fun = sin(a) / a;
+		printf(" %f", fun);
+		a += step;
+		i++;
+	}
+	printf("\nType in input for the second exercise\n");
+	cin >> a;
+	int sum = 2;
+	int first = 1;
+	int second = 1;
+	while (sum < a) 
+	{
+		sum += second;
+		first = second;
+		second = first + second;
+	}
+	printf("%i", sum);
+}
