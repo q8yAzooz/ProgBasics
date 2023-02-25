@@ -3,16 +3,16 @@ using namespace std;
 
 int main() 
 {
-	printf("Type in input for the first exercise (0;4]\n");
+	printf("Type in the minimal number in range (0;4]\n");
 	float a = 0;
 	cin >> a;
-	float step = (4 - a) / 10;
-	if (a <= 0 || a > 4) 
+	if (a <= 0 || a > 4)
 	{
 		printf("Incorrect input\n");
 		cin >> a;
 		return 0;
 	}
+	float step = (4 - a) / 9;
 	int i = 0;
 	float fun = 0;
 	while (i != 10) 
@@ -22,16 +22,18 @@ int main()
 		a += step;
 		i++;
 	}
-	printf("\nType in input for the second exercise\n");
+	printf("\nType in maximum sum for the Fibonachi numbers\n");
 	cin >> a;
 	int sum = 2;
 	int first = 1;
 	int second = 1;
+	int N = 2;
 	while (sum < a) 
 	{
 		sum += second;
 		first = second;
 		second = first + second;
+		N++;
 	}
-	printf("%i", sum);
+	printf("%s %i %s %i", "Sum:", sum, "Number:", N);  //how do I use scanf()..?
 }
