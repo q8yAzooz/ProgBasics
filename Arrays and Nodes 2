@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+typedef int DataType;
+struct Node
+{
+    DataType data;
+    Node* link;
+};
+int main()
+{
+    Node* head = new Node;
+    head->data = 1;
+    head->link = new Node;
+    Node* current = head->link;
+    int i = 2;
+    while (i != 11)
+    {
+        current->data = i;
+        current->link = new Node;
+        current = current->link;
+        i++;
+    }
+    i = 1;
+    current = head;
+    while (i != 11)
+    {
+        cout << current->data << " ";
+        current = current->link;
+        i++;
+    }
+}
