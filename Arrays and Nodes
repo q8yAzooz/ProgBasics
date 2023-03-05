@@ -1,0 +1,50 @@
+#include <iostream>
+
+int main()
+{
+	int S[10];
+	int i = 0;
+	while (i != 9)
+	{
+		S[i] = pow(i, 2);
+		std::cout << S[i] << " ";
+		i++;
+	}
+	std::cout << "\n";
+
+	int *p;
+	p = S;
+	i = 0;
+	while (i != 9)
+	{
+		*p = pow(i, 2);
+		std::cout << *p << " ";
+		p++;
+		i++;
+	}
+	std::cout << "\n";
+
+	int *d;
+	d = new int [10];
+	i = 0;
+	while (i != 9)
+	{
+		d[i] = pow(i, 2);
+		std::cout << d[i] << " ";
+		i++;
+	}
+	delete [] d;
+	std::cout << "\n";
+
+	d = new int[10];
+	int *l;
+	l = d;
+	i = 0;
+	while (i != 9)
+	{
+		*l = pow(i, 2);
+		std::cout << *l << " ";
+		l++;
+		i++;
+	}
+}
