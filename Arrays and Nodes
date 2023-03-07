@@ -47,4 +47,5 @@ int main()
 		l++;
 		i++;
 	}
+        delete [] d;
 }
