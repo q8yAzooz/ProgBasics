@@ -1,52 +1,42 @@
 #include <iostream>
 using namespace std;
-
 int main()
 {
-    // Exercise 1
-    // start
-    char a[2][15];
-    strcpy_s(a[0], "Hello, ");
-    strcpy_s(a[1], "world! ");
-    strcat_s(a[0], a[1]);
-    string b = a[0];
-    int len = int(strlen(a[0]));
-    cout << "Array of char: " << a[0] << "\nArray length: " << len << "\nString: " << b;
-    // end
-
-    // Exercise 2
-    // start
-    char Arr[20][10];
-    char c = NULL;
-    char word[10];
-    int i = 0;
-    cout << "\nInput up to 20 words with up to 10 letters (break with enter) ";
-    while (c != '\n')
-    {
-        if (i == 20)
-        {
-            cout << "\nToo many words. ";
-            break;
-        }
-        int j = 0;
-        while (c != ' ')
-        {
-            if (j == 10)
-            {
-                cout << "\nWord is too long. ";
-                break;
-            }
-            cin >> c;
-            word[j] = c;
-            j++;
-        }
-        strcpy_s(Arr[i], word);
-        fill_n(word, 10, "");
-        i++;
-    }
-    for (i = 0; i != 19; i++)
-    {
-        cout << Arr[i] << " ";
-    }
-    // end
+	int i = 0;
+	char word[10] = { NULL };	
+	char word2[10] = { NULL };
+	char arr[20][10];
+	for (i = 0; i <= 19; i++) { strcpy_s(arr[i], "."); }
+    
+	// exercise 1
+	// start
+	strcpy_s(word, "nothing");
+	strcpy_s(word2, "! ");
+	strcat_s(word, word2);
+	int len = int(strlen(word));
+	cout << "Length: " << len << "\nArray of char: " << word;
+	// end
+	
+	// exercise 2
+	// start
+	cout << "\nType up to 20 words with up to 10 letters (if less than 20 words, end with a .): \n";
+	for (i = 0; i <= 19; i++)
+	{
+		cin >> word;
+		strcpy_s(arr[i], word);
+		if (word[0] == '.')
+		{
+			break;
+		}
+	}
+	cout << "\nResult: \n";
+	for (i = 1; i <= 19; i += 2)
+	{
+		if (arr[i][0] == '.')
+		{
+			break;
+		}
+		cout << arr[i] << " ";
+	}
+	// end
 }
