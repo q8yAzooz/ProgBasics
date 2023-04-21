@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    int N;
+    cout << "Type in the length of the array:" << endl;
+    cin >> N;
+    int *Arr;
+    Arr = new int[N];
+    int index[18];
+    memset(index, 0, sizeof(index));
+    cout << "Type in the array" << endl;
+    for (int i = 0; i < N; i++)
+    {
+        cin >> Arr[i];
+    }
+    for (int i = 0; i < N; i++)
+    {
+        int a = Arr[i];
+        index[a]++;
+    }
+    cout << "Packed array:" << endl;
+    for (int i = 0; i < 18; i++)
+    {
+        cout << index[i] << ' ';
+    }
+    cout << endl << "Unpacked array:" << endl;
+    for (int j = 0; j < 18; j++)
+    {
+        for (int i = 0; i < index[j]; i++)
+        {
+            cout << j << ' ';
+        }
+    }
+}
