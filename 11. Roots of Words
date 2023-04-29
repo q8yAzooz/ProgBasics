@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <string>
+using namespace std;
+
+int main()
+{
+	string word;
+	vector <string> v;
+	ifstream in("Test1.txt");
+
+	if (in.is_open())
+	{
+		while (getline(in, word, ' '))
+		{
+			v.push_back(word);
+		}
+	}
+	in.close();
+
+	int len = 0, m, bm = 0, a, ind1 = 0, ind2 = 0;
+
+	for (int i = 0; i < v.size(); i++)
+	{
+		m = 0;
+		for (int j = 0; j < v.size(); j++)
+		{
+			if (i == j);
+			else
+			{
+			a = v[i].length();
+			if (v[i].compare(0, a, v[j]) == 0)
+			{
+				m++;
+				if (a > len) { len = a; ind1 = i; }
+				if (m > bm) { bm = m; ind2 = i; }
+			}
+			}
+		}
+	}
+
+	vector <string> v1;
+
+	for (int j = 0; j < v.size(); j++)
+	{
+		if (ind2 == j);
+		else
+		{
+			a = v[ind2].length();
+			if (v[ind2].compare(0, a, v[j]) == 0)
+			{
+				v1.push_back(v[j]);
+			}
+		}
+	}
+}
