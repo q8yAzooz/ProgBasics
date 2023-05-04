@@ -26,8 +26,7 @@ int main()
 		m = 0;
 		for (int j = 0; j < v.size(); j++)
 		{
-			if (i == j);
-			else
+			if (i != j)
 			{
 			a = v[i].length();
 			if (v[i].compare(0, a, v[j]) == 0)
@@ -44,8 +43,7 @@ int main()
 
 	for (int j = 0; j < v.size(); j++)
 	{
-		if (ind1 == j);
-		else
+		if (ind1 != j)
 		{
 			a = v[ind1].length();
 			if (v[ind1].compare(0, a, v[j]) == 0)
