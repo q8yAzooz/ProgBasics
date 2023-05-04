@@ -33,10 +33,10 @@ int main()
 			{
 				m++;
 				if (a > len) { len = a; ind1 = i; }
-				if (m > bm) { bm = m; ind2 = i; }
 			}
 			}
 		}
+		if (m > bm) { bm = m; ind2 = i; }
 	}
 
 	vector <string> v1;
