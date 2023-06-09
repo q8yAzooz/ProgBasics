@@ -2,22 +2,33 @@
 #include <vector>
 #include <fstream>
 #include <string>
+
 using namespace std;
+
+bool begins(string b, string s)
+{
+	if (s.length() < b.length())
+		return false;
+	return s.substr(0, b.length()) == b;
+}
 
 int main()
 {
 	string word;
 	vector <string> v;
 	ifstream in("Test1.txt");
-
-	if (in.is_open())
-	{
-		while (getline(in, word, ' '))
+	if (!in.is_open())
+		return 1;
+	while (getline(in, word, ' '))
 		{
-			v.push_back(word);
+			string::size_type from = word.find_first_not_of(" \t\n\r"), to = word.find_last_not_of(" \t\n\r");
+			if (from == (size_t)-1 || to == (size_t)-1)
+				continue;
+			v.push_back(word.substr(from, to + 1));
 		}
-	}
 	in.close();
+
+	cout << "have " << v.size() + 1 << " words" << endl;
 
 	int len = 0, m, bm = 0, a, ind1 = 0, ind2 = 0;
 
@@ -26,32 +37,36 @@ int main()
 		m = 0;
 		for (int j = 0; j < v.size(); j++)
 		{
-			if (i != j)
+			if (i != j && begins(v[i], v[j])) m++;
+			if (m > 0)
 			{
-			a = v[i].length();
-			if (v[i].compare(0, a, v[j]) == 0)
-			{
-				m++;
-				if (a > len) { len = a; ind1 = i; }
-			}
+				if (v[i].length() > len)
+				{
+					ind1 = i;
+					len = v[i].length();
+				}
+				if (m > bm)
+				{
+					ind2 = i;
+					bm = m;
+				}
 			}
 		}
-		if (m > bm) { bm = m; ind2 = i; }
 	}
+	
+	cout << "The longest base is " << v[ind1] << endl;
+	cout << "The most important base is " << v[ind2] << endl;
 
 	vector <string> v1;
 
 	for (int j = 0; j < v.size(); j++)
 	{
-		if (ind1 != j)
+		if (ind1 != j && begins(v[ind1], v[j]))
 		{
-			a = v[ind1].length();
-			if (v[ind1].compare(0, a, v[j]) == 0)
-			{
-				v1.push_back(v[j]);
-			}
+			v1.push_back(v[j]);
 		}
-	}
+	}		
+	
 	ofstream out;
 	out.open("Result1.txt");
 	if (out.is_open())
@@ -71,7 +86,7 @@ int main()
 	out.open("Result2.txt");
 	if (out.is_open())
 	{
-		out << "Most significant root word: " << v[ind2] << endl << "Ammount: ";
+		out << "Most significant root word: " << v[ind2] << endl << "Amount: ";
 		if (bm != 0) out << bm;
 		else out << "NO";
 	}
