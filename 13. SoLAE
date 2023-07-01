@@ -64,22 +64,17 @@ int calcRank(float** matrix, int coll, int row, int* L)
     for (r = 0, i = 0; (i < coll) && (r < row); i++)
     {
         int v = r;
-        //выбор ведущего элемента: matrix[v][i]
         for (int j = r + 1; j < row; j++)
             if (abs(matrix[j][i]) > abs(matrix[v][i])) v = j;
 
         if (abs(matrix[v][i]) >= eps)
         {
-
-            //перестановка r–й строки с v–й
             if (v != r)
             {
                 float* z = matrix[r];
                 matrix[r] = matrix[v];
                 matrix[v] = z;
             }
-
-            //вычитание строк
             for (int k = r + 1; k < row; k++)
             {
                 float c = matrix[k][i] / matrix[i][i];
@@ -88,7 +83,6 @@ int calcRank(float** matrix, int coll, int row, int* L)
                     matrix[k][j] -= c * matrix[i][j];
                 }
             }
-
             r++;
         }
     }
@@ -104,7 +98,6 @@ float* calcXs(float** matrix, int coll, int row, int rank, int* L)
 
     while (i < rank)
     {
-        //выбор ведущего элемента matrix[v][u]
         int v = i;  int u = i;
         for (int j = i; j < row; j++)
             for (int k = i; k < coll; k++)
@@ -113,7 +106,6 @@ float* calcXs(float** matrix, int coll, int row, int rank, int* L)
         if (abs(matrix[v][u]) < eps) rank = i;
         else
         {
-            //перестановка r–й строки с v–й
             if (v != i)
             {
                 float* z = matrix[i];
@@ -121,7 +113,6 @@ float* calcXs(float** matrix, int coll, int row, int rank, int* L)
                 matrix[v] = z;
             }
 
-            //перестановка столбцов
             if (u != i)
             {
                 for (int k = 0; k < row; k++)
@@ -136,11 +127,9 @@ float* calcXs(float** matrix, int coll, int row, int rank, int* L)
                 L[u] = p;
             }
 
-            //деление i-й строки на matrix[i][i]
             float c = matrix[i][i];
             for (int j = i; j <= coll + 1; j++) matrix[i][j] /= c;
 
-            //вычитание уравнений
             for (int k = 0; k < row; k++)
                 if (k != i)
                 {
@@ -152,24 +141,21 @@ float* calcXs(float** matrix, int coll, int row, int rank, int* L)
         }
     }
 
-    //проверка решения системы уравнений
     i = rank;
 
     while (i < row && abs(matrix[i][coll]) < eps) i++;
 
-    if (i < row) //система противоречива
+    if (i < row) 
     {
         X[coll] = 0;
     }
-    else if (rank == coll) //решение системы единственное
+    else if (rank == coll) 
     {
         for (int j = 0; j < coll; j++) X[L[j]] = matrix[j][coll];
         X[coll] = 1;
     }
     else
     {
-        /*задание значений независимым переменным:
-        X[L[r]], ..., X[L[n-1]]*/
         cout << "Input independant Xs:\n";
         for (int j = rank; j < coll; j++)
         {
@@ -177,7 +163,6 @@ float* calcXs(float** matrix, int coll, int row, int rank, int* L)
             cin >> X[L[j]];
         }
 
-        //вычисление зависимых переменных:
         for (int j = 0; j < rank; j++)
         {
             X[L[j]] = matrix[j][coll];
@@ -278,15 +263,14 @@ void defaultMode()
 
     float* ArgsFromTest = creating();
 
-    int equatioNumber = ArgsFromTest[0];// количество уравнение
-    int unknowNumber = ArgsFromTest[1];// количество неизвестных
+    int equatioNumber = ArgsFromTest[0];
+    int unknowNumber = ArgsFromTest[1];
 
-    float* xx = new float[unknowNumber];//массив неизвестных
-    float** matrix = filling(ArgsFromTest, equatioNumber, unknowNumber + 1); //расширенная матрица
-    float** matrixCopy = filling(ArgsFromTest, equatioNumber, unknowNumber + 1); //копия для счёта ранга
+    float* xx = new float[unknowNumber];
+    float** matrix = filling(ArgsFromTest, equatioNumber, unknowNumber + 1);
+    float** matrixCopy = filling(ArgsFromTest, equatioNumber, unknowNumber + 1);
 
     int* L = new int[unknowNumber];
-    /*задание индексного массива L*/
     for (int i = 0; i < unknowNumber; i++) L[i] = i;
 
     matrixRank = calcRank(matrixCopy, unknowNumber, equatioNumber, L);
